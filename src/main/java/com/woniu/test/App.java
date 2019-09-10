@@ -3,6 +3,7 @@ package com.woniu.test;
 import static org.junit.Assert.*;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.config.IniSecurityManagerFactory;
 import org.apache.shiro.mgt.SecurityManager;
@@ -21,7 +22,11 @@ public class App {
 		SecurityUtils.setSecurityManager(securityManager);
 		Subject subject = SecurityUtils.getSubject();
 		UsernamePasswordToken token = new UsernamePasswordToken("foo","123");
-		
+		try {
+			subject.login(token);
+		} catch (UnknownAccountException e) {
+			System.out.println("");
+		}
 	}
 
 }
